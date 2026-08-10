@@ -1,4 +1,4 @@
-# Proxlab# 🖥️ Proxmox Home Lab
+# 🖥️ Proxmox Home Lab
 
 Este repositório documenta a criação e configuração do meu Home Lab utilizando o **Proxmox VE** como plataforma de virtualização.
 
@@ -24,6 +24,11 @@ O objetivo do laboratório é praticar administração de servidores Linux, rede
 
 ## 1.0 - Requisitos para instalação
 
+- Instalação do [Ventoy](https://www.ventoy.net/en/download.html)
+- Instalação da ISO do [Proxmox](https://www.proxmox.com/en/downloads/proxmox-virtual-environment)
+- Necessário que durante a intalação a maquina esteja conectada ao cabo de rede
+
+Obs: Recomento que não instale as ultimas versões pode pode ocasionar em Erro durante a instalação do Proxmox
 
 
 ## 1.1 Download da ISO
@@ -42,7 +47,7 @@ O hash obtido deve ser comparado com o SHA256 disponibilizado para a versão bai
 
 ---
 
-## 1.2 Primeira tentativa utilizando Ventoy
+## 1.2 Possiveis problemas
 
 Inicialmente foi utilizado o **Ventoy** para inicializar a ISO do Proxmox.
 
@@ -53,27 +58,10 @@ error: invalid magic number
 error: you need to load the kernel first
 ```
 
-O problema estava relacionado ao carregamento da ISO durante o processo de boot.
-
-Para eliminar o Ventoy como possível causa, foi criada uma mídia dedicada para instalação do Proxmox.
+Para resolver esse problema foi necessário pegar uma versão desatualizada do Proxmox. Por esse motivo é necessário a validação do Hash.
 
 ---
 
-## 1.3 Criação do pendrive utilizando Rufus
-
-Foi utilizado o **Rufus** para gravar diretamente a ISO do Proxmox no pendrive.
-
-Durante a gravação foi selecionado:
-
-```text
-DD Image Mode
-```
-
-Esse modo grava diretamente a estrutura da ISO no dispositivo USB.
-
-> Após a gravação em modo DD, o pendrive pode deixar de aparecer normalmente no Explorador de Arquivos do Windows. Isso é esperado devido à estrutura de partições criada pela imagem.
-
----
 
 # 2. Configuração da BIOS/UEFI
 
@@ -116,17 +104,10 @@ Durante a instalação foram configurados:
 
 # 4. Configuração do Hostname
 
-Para o servidor foi definido:
 
-```text
-Hostname: pve01
-```
+Pode prosseguir com as configurações da maneira que preferir.
 
-FQDN:
-
-```text
-pve01.home.arpa
-```
+Essas definições são feitas de padrão pelo proprio Proxmox 
 
 Estrutura:
 
@@ -255,29 +236,7 @@ invalid magic number
 you need to load the kernel first
 ```
 
-### Solução aplicada
-
-Foi removido o Ventoy do processo e criada uma mídia dedicada utilizando:
-
-```text
-ISO Proxmox
-    ↓
-Rufus
-    ↓
-DD Image Mode
-    ↓
-UEFI
-    ↓
-Secure Boot OFF
-    ↓
-Instalação do Proxmox
-```
-
-Após a criação correta da mídia, foi possível prosseguir com a instalação.
-
----
-
-# 9. Arquitetura inicial do Home Lab
+# 8. Arquitetura inicial do Home Lab
 
 Planejamento inicial:
 
@@ -301,7 +260,7 @@ Planejamento inicial:
 
 ---
 
-# 10. Próximas etapas
+# 9. Próximas etapas
 
 - [x] Instalar Proxmox VE
 - [x] Configurar hostname/FQDN
